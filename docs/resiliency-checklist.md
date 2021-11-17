@@ -1,16 +1,4 @@
-***In order to determine the necessary skills, hardware, and good practices needed for a Stake Pool Operators to be more resilient to various unforeseen events that may take down their pools from the network we have broken the checklist into the following sections: Human, Stake Pool Operations Skills, and Resilience Options, Redundancy***
-
-
-
-# Human
-
-- [ ] Motivation to ba an SPO
-- [ ] Pool Mission
-- [ ] Personal Networking Group
-- [ ] Social Media Outlets
-- [ ] Continuing Education Training
-- [ ] Cardano Forum
-
+***In order to determine the necessary skills, hardware, and good practices needed for a Stake Pool Operators to be more resilient to various unforeseen events that may take down their pools from the network we have broken the checklist into the following sections: Stake Pool Operations Recommended Skills and Resources, Resilience Options, and Redundancy***
 
 
 # Stake Pool Operation
@@ -54,6 +42,7 @@
 - Power supply
 	- [ ] UPS 
 - [ ] Energy usage measurement tools
+
 - Immediate failover power from grid to off-grid:
 	- [ ] solar power
 	- [ ] Tesla or LG style wall batteries
