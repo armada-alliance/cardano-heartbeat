@@ -9,35 +9,40 @@ Daily backup of your cores hot keys and operational files to a local or remote u
 ```bash
 sudo su
 ```
+
 Tail syslog before inserting your drive. This will print some information that can help you identify the disk.
 
 ```bash
 tail -f /var/log/syslog
 ```
+
 Attach the external drive and take note of the assigned device node. eg. /dev/sdb
 
->If the target drive is lacking partition tables syslog may not print the device node assignment. fdisk -l however will.
+> If the target drive is lacking partition tables syslog may not print the device node assignment. fdisk -l however will.
 
 You can also a list of drives with fdisk.
 
 ```bash
 fdisk -l
 ```
+
 Example output:
 
 ```bash
 Disk /dev/sdb: 57.66 GiB, 61907927040 bytes, 120913920 sectors
-Disk model: Cruzer          
+Disk model: Cruzer
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 512 bytes
 I/O size (minimum/optimal): 512 bytes / 512 bytes
 Disklabel type: gpt
 Disk identifier: EECA81B9-3683-4A59-BC63-02EEDC04FD21
 ```
+
 In my case it is /dev/sdb. Yours may be /dev/sdc, /dev/sdd or so on. /dev/sda is usually the system drive.
 **<span style="color:red">Do not format your system drive by accident</span>**.
 
-## Create an new GUID Partition Table (GPT) 
+## Create an new GUID Partition Table (GPT)
+
 **<span style="color:red">This will wipe the disk</span>**
 
 ```bash
@@ -65,19 +70,21 @@ w	write table to disk and exit
 x	extra functionality (experts only)
 ?	print this menu
 ```
+
 1. Enter o for new GPT
 2. Enter n to add a new partition and accept defaults to create a partition that spans the entire disk.
 3. Enter w to write changes to disk and exit gdisk.
 
 Your new partition can be found at /dev/sdb1, the first partition on sdb.
 
- ### Optionaly Check the drive for bad blocks (takes a couple of hours)
+### Optionaly Check the drive for bad blocks (takes a couple of hours)
 
- ```bash
- badblocks -c 10240 -s -w -t random -v /dev/sdb
-  ```
+```bash
+badblocks -c 10240 -s -w -t random -v /dev/sdb
+```
 
 ## Format the partition as ext4
+
 We still need to create a filesystem on the partition.
 
 ```bash
@@ -91,28 +98,32 @@ Example output:
 mke2fs 1.46.3 (27-Jul-2021)
 Creating filesystem with 15113979 4k blocks and 3784704 inodes
 Filesystem UUID: 56c1fa6c-5f41-4d48-b985-89b02893f67a
-Superblock backups stored on blocks: 
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+Superblock backups stored on blocks:
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
 	4096000, 7962624, 11239424
 
-Allocating group tables: done                            
-Writing inode tables: done                            
+Allocating group tables: done
+Writing inode tables: done
 Creating journal (65536 blocks): done
-Writing superblocks and filesystem accounting information: done   
+Writing superblocks and filesystem accounting information: done
 ```
-## Mount the drive for $USER at boot
+
+## Mount the drive at boot
+
 We want this drive to always be available to our backup script. Since it will be holding sensitive data we will mount it in a way where only root and the user cardano-node runs as can access.
 
-Run blkid to get the UUID of the filesystem we just created.
+Run blkid and pipe it through awk to get the UUID of the filesystem we just created.
 
 ```bash
 sudo blkid /dev/sdb1 | awk -F'"' '{print $2}'
 ```
+
 Example output:
 
 ```bash
 56c1fa6c-5f41-4d48-b985-89b02893f67a
 ```
+
 For me the UUID=56c1fa6c-5f41-4d48-b985-89b02893f67a
 
 Drop back into your regular users shell.
@@ -120,6 +131,7 @@ Drop back into your regular users shell.
 ```bash
 exit
 ```
+
 Add mount entry to the bottom of fstab adding your UUID and the full system path to you backup folder.
 
 ```bash
@@ -127,24 +139,53 @@ sudo nano /etc/fstab
 ```
 
 ```bash
-UUID=12ce4f16-1f2a-42aa-9783-f9e1c229b16e <full path to mount> auto defaults,nofail 0 1
+UUID=12ce4f16-1f2a-42aa-9783-f9e1c229b16e <full path to mount> auto nosuid,nodev,nofail 0 1
 ```
 
->nofail allows the server to boot if the drive is not inserted.
+> nofail allows the server to boot if the drive is not inserted.
 
 ```bash
-cd ; mkdir $NODE_HOME/backup
+cd ; mkdir $NODE_HOME/backup ; umask 022 $NODE_HOME/backup
 ```
+
 Take ownership of the drive.
 
 ```bash
 sudo chown -R $USER:$USER $NODE_HOME/backup
 ```
 
-Test the mount.
+Mount the drive and confirm it mounted by locating the lost+found folder. If it is not present then your drive is not mounted.
 
 ```bash
 sudo mount $NODE_HOME/backup
+ls $NODE_HOME/backup/
 ```
 
+Reboot the server and confirm the system mounted the drive at boot.
 
+## Scheduled Backups
+
+### Backup what you want with Rsync as frequently as you want.
+
+Create an alias in .bashrc or .adaenv if present.
+
+```bash
+cd ; nano .bashrc
+```
+
+Add the following at the bottom edit the paths and exclude as you see fit and source the changes.
+
+```bash
+isMounted () { findmnt -rno $NODE_HOME/backup "$1" >/dev/null;} #path or device
+
+#Universal:
+if isMounted "/$NODE_HOME/backup"; 
+   then alias node_backup="rsync -a --exclude={"backup/","db/","scripts/","logs/"} $NODE_HOME $NODE_HOME/backup/"
+   else exit 0
+fi
+
+```
+
+```bash
+source .bashrc
+```
