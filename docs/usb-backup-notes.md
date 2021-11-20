@@ -85,7 +85,7 @@ badblocks -c 10240 -s -w -t random -v /dev/sdb
 
 ## Format the partition as ext4
 
-We still need to create a filesystem on the partition.
+We still need to create an ext4 filesystem on the partition.
 
 ```bash
 mkfs.ext4 /dev/sdb1
@@ -94,10 +94,9 @@ mkfs.ext4 /dev/sdb1
 Example output:
 
 ```bash
-
 mke2fs 1.46.3 (27-Jul-2021)
 Creating filesystem with 15113979 4k blocks and 3784704 inodes
-Filesystem UUID: 56c1fa6c-5f41-4d48-b985-89b02893f67a
+Filesystem UUID: c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37
 Superblock backups stored on blocks:
 	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
 	4096000, 7962624, 11239424
@@ -110,7 +109,7 @@ Writing superblocks and filesystem accounting information: done
 
 ## Mount the drive at boot
 
-We want this drive to always be available to our backup script. Since it will be holding sensitive data we will mount it in a way where only root and the user cardano-node runs as can access.
+We want this drive to always be available to our backup job. Since it will be holding sensitive data we will mount it in a way where only root and the user cardano-node runs as can access.
 
 Run blkid and pipe it through awk to get the UUID of the filesystem we just created.
 
@@ -121,10 +120,10 @@ sudo blkid /dev/sdb1 | awk -F'"' '{print $2}'
 Example output:
 
 ```bash
-56c1fa6c-5f41-4d48-b985-89b02893f67a
+c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37
 ```
 
-For me the UUID=56c1fa6c-5f41-4d48-b985-89b02893f67a
+For me the UUID=c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37
 
 Drop back into your regular users shell.
 
@@ -139,26 +138,26 @@ sudo nano /etc/fstab
 ```
 
 ```bash
-UUID=12ce4f16-1f2a-42aa-9783-f9e1c229b16e <full path to mount> auto nosuid,nodev,nofail 0 1
+UUID=c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37 <full path to mount> auto nosuid,nodev,nofail 0 1
 ```
 
 > nofail allows the server to boot if the drive is not inserted.
 
 ```bash
-cd ; mkdir $NODE_HOME/backup ; umask 022 $NODE_HOME/backup
+cd ; mkdir $HOME/core-backup ; umask 022 $HOME/core-backup
 ```
 
 Take ownership of the drive.
 
 ```bash
-sudo chown -R $USER:$USER $NODE_HOME/backup
+sudo chown -R $USER:$USER $HOME/core-backup
 ```
 
 Mount the drive and confirm it mounted by locating the lost+found folder. If it is not present then your drive is not mounted.
 
 ```bash
-sudo mount $NODE_HOME/backup
-ls $NODE_HOME/backup/
+sudo mount $HOME/core-backup
+ls $HOME/core-backup/
 ```
 
 Reboot the server and confirm the system mounted the drive at boot.
@@ -176,11 +175,10 @@ cd ; nano .bashrc
 Add the following at the bottom edit the paths and exclude as you see fit and source the changes.
 
 ```bash
-isMounted () { findmnt -rno $NODE_HOME/backup "$1" >/dev/null;} #path or device
+isMounted () { findmnt -rno $HOME/core-backup "$1" >/dev/null;}
 
-#Universal:
-if isMounted "/$NODE_HOME/backup"; 
-   then alias node_backup="rsync -a --exclude={"backup/","db/","scripts/","logs/"} $NODE_HOME $NODE_HOME/backup/"
+if isMounted "$HOME/core-backup"; 
+   then alias node_backup="rsync -a --exclude={"backup/","db/","scripts/","logs/"} $NODE_HOME $HOME/core-backup/"
    else exit 0
 fi
 
