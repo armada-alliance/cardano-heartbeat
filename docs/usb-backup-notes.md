@@ -90,7 +90,7 @@ Example output:
 
 mke2fs 1.46.3 (27-Jul-2021)
 Creating filesystem with 15113979 4k blocks and 3784704 inodes
-Filesystem UUID: 12ce4f16-1f2a-42aa-9783-f9e1c229b16e
+Filesystem UUID: 56c1fa6c-5f41-4d48-b985-89b02893f67a
 Superblock backups stored on blocks: 
 	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
 	4096000, 7962624, 11239424
@@ -106,30 +106,45 @@ We want this drive to always be available to our backup script. Since it will be
 Run blkid to get the UUID of the filesystem we just created.
 
 ```bash
-blkid
+sudo blkid /dev/sdb1 | awk -F'"' '{print $2}'
 ```
 Example output:
 
 ```bash
-/dev/sda1: LABEL_FATBOOT="system-boot" LABEL="system-boot" UUID="FE3C-0011" BLOCK_SIZE="512" TYPE="vfat" PARTUUID="deca7dfc-01"
-/dev/sda2: LABEL="writable" UUID="87f67789-4694-4d47-8fcd-d86ef4277f59" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="deca7dfc-02"
-/dev/sdb1: UUID="12ce4f16-1f2a-42aa-9783-f9e1c229b16e" BLOCK_SIZE="4096" TYPE="ext4" PARTLABEL="Linux filesystem" PARTUUID="5fbcf400-a010-4d32-a2e8-f609297eeb7e"
+56c1fa6c-5f41-4d48-b985-89b02893f67a
 ```
-For me the UUID="12ce4f16-1f2a-42aa-9783-f9e1c229b16e"
+For me the UUID=56c1fa6c-5f41-4d48-b985-89b02893f67a
 
 Drop back into your regular users shell.
 
 ```bash
 exit
 ```
-Logged in as the user that runs cardano-node print your user & group id's
+Add mount entry to the bottom of fstab adding your UUID and the full system path to you backup folder.
 
 ```bash
-id -u $USER ; id -g $USER 
+sudo nano /etc/fstab
 ```
-Example output:
 
 ```bash
-1001
-1001
+UUID=12ce4f16-1f2a-42aa-9783-f9e1c229b16e <full path to mount> auto defaults,nofail 0 1
 ```
+
+>nofail allows the server to boot if the drive is not inserted.
+
+```bash
+cd ; mkdir $NODE_HOME/backup
+```
+Take ownership of the drive.
+
+```bash
+sudo chown -R $USER:$USER $NODE_HOME/backup
+```
+
+Test the mount.
+
+```bash
+sudo mount $NODE_HOME/backup
+```
+
+
