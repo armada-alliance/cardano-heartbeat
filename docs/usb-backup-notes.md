@@ -147,17 +147,17 @@ UUID=c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37 <full path to mount> auto nosuid,nodev
 cd ; mkdir $HOME/core-backup ; umask 022 $HOME/core-backup
 ```
 
-Take ownership of the drive.
-
-```bash
-sudo chown -R $USER:$USER $HOME/core-backup
-```
-
 Mount the drive and confirm it mounted by locating the lost+found folder. If it is not present then your drive is not mounted.
 
 ```bash
 sudo mount $HOME/core-backup
 ls $HOME/core-backup/
+```
+
+Take ownership of the drive.
+
+```bash
+sudo chown -R $USER:$USER $HOME/core-backup
 ```
 
 Reboot the server and confirm the system mounted the drive at boot.
@@ -166,7 +166,45 @@ Reboot the server and confirm the system mounted the drive at boot.
 
 ### Backup what you want with Rsync as frequently as you want.
 
-Create an alias in .bashrc or .adaenv if present.
+Create a script that will only backup if the drive is mounted.
+
+```bash
+nano $NODE_HOME/scripts/core-backup.sh
+```
+
+```bash
+#!/bin/bash
+
+SOURCE="/home/ada/pi-pool"
+DESTINATION="/home/ada/core-backup/"
+
+if grep -qs 'home/ada/core-backup ' /proc/mounts; then
+    rsync -a --exclude={"db/","scripts/","logs/"} $SOURCE $DESTINATION
+else
+    exit 0
+fi
+```
+
+```bash
+chmod +x $NODE_HOME/scripts/core-backup.sh
+```
+
+### Setup Cron
+
+Open crontab and add the rule to the bottom.
+
+```bash
+crontab -e
+```
+
+```bash
+# run 3am every day
+0 3 * * * $HOME/pi-pool/scripts/core-backup.sh
+```
+
+## Optionalbackup alias with mount check
+
+Create an alias in .bashrc or .adaenv if present for manual alias to backup the core.
 
 ```bash
 cd ; nano .bashrc
@@ -175,11 +213,10 @@ cd ; nano .bashrc
 Add the following at the bottom edit the paths and exclude as you see fit and source the changes.
 
 ```bash
-isMounted () { findmnt -rno $HOME/core-backup "$1" >/dev/null;}
-
-if isMounted "$HOME/core-backup"; 
-   then alias node_backup="rsync -a --exclude={"backup/","db/","scripts/","logs/"} $NODE_HOME $HOME/core-backup/"
-   else exit 0
+if grep -qs 'home/ada/core-backup ' /proc/mounts; then
+    echo "Core backup drive is mounted." ; alias core-backup="rsync -a --exclude={"db/","scripts/","logs/"} $NODE_HOME $HOME/core-backup/"
+else
+    echo "Core backup drive is not mounted."
 fi
 
 ```
