@@ -20,7 +20,7 @@ Attach the external drive and take note of the assigned device node. eg. /dev/sd
 
 > If the target drive is lacking partition tables syslog may not print the device node assignment. fdisk -l however will.
 
-You can also a list of drives with fdisk.
+You can also print a list of drives with fdisk.
 
 ```bash
 fdisk -l
