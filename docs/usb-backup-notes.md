@@ -143,6 +143,8 @@ UUID=c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37 <full path to mount> auto nosuid,nodev
 
 > nofail allows the server to boot if the drive is not inserted.
 
+Create the mountpoint & set default ACL for files and folders with umask.
+
 ```bash
 cd; mkdir $HOME/core-backup; umask 022 $HOME/core-backup
 ```
