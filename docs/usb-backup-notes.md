@@ -71,9 +71,9 @@ x	extra functionality (experts only)
 ?	print this menu
 ```
 
-1. Enter o for new GPT
-2. Enter n to add a new partition and accept defaults to create a partition that spans the entire disk.
-3. Enter w to write changes to disk and exit gdisk.
+1. Enter **o** for new GPT
+2. Enter **n** to add a new partition and accept defaults to create a partition that spans the entire disk.
+3. Enter **w** to write changes to disk and exit gdisk.
 
 Your new partition can be found at /dev/sdb1, the first partition on sdb.
 
@@ -144,7 +144,7 @@ UUID=c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37 <full path to mount> auto nosuid,nodev
 > nofail allows the server to boot if the drive is not inserted.
 
 ```bash
-cd ; mkdir $HOME/core-backup ; umask 022 $HOME/core-backup
+cd; mkdir $HOME/core-backup; umask 022 $HOME/core-backup
 ```
 
 Mount the drive and confirm it mounted by locating the lost+found folder. If it is not present then your drive is not mounted.
@@ -154,7 +154,7 @@ sudo mount $HOME/core-backup
 ls $HOME/core-backup/
 ```
 
-Take ownership of the drive.
+Take ownership of the filesystem.
 
 ```bash
 sudo chown -R $USER:$USER $HOME/core-backup
@@ -202,12 +202,12 @@ crontab -e
 0 3 * * * $HOME/pi-pool/scripts/core-backup.sh
 ```
 
-## Optionalbackup alias with mount check
+## Optional backup alias with mount check
 
 Create an alias in .bashrc or .adaenv if present for manual alias to backup the core.
 
 ```bash
-cd ; nano .bashrc
+cd; nano .bashrc
 ```
 
 Add the following at the bottom edit the paths and exclude as you see fit and source the changes.
