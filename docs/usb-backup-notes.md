@@ -214,7 +214,7 @@ Add the following at the bottom edit the paths and exclude as you see fit and so
 
 ```bash
 if grep -qs 'home/ada/core-backup ' /proc/mounts; then
-    echo "Core backup drive is mounted." ; alias core-backup="rsync -a --exclude={"db/","scripts/","logs/"} $NODE_HOME $HOME/core-backup/"
+    echo "Core backup drive is mounted."; alias core-backup="rsync -a --exclude={"db/","scripts/","logs/"} $NODE_HOME $HOME/core-backup/"
 else
     echo "Core backup drive is not mounted."
 fi
@@ -223,4 +223,9 @@ fi
 
 ```bash
 source .bashrc
+```
+Now if you want to manually backup the hot keys just type core-backup. For example after generating a new KES pair and node.cert
+
+```bash
+core-backup
 ```
