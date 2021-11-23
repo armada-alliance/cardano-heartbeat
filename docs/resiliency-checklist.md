@@ -56,14 +56,18 @@
 - Power supply
 	- [ ] UPS 
 - [ ] Energy usage measurement tools
+	- [ ] Non-Contact Voltage Testers (Inductance Testers)
+	- [ ] Multimeter
+	- [ ] Oscilloscope
+	
 
 - Immediate failover power from grid to off-grid:
-	- [ ] solar power
+	- [ ] solar power 
 	- [ ] Tesla or LG style wall batteries
 	- [ ] Propane Generator
 	- [ ] Diesel Generator
 	- [ ] Gas Generator
-	- [ ] Wind Generator
-	- [ ] Hydro power
-	- [ ] Wind
+	- [ ] Wind power (LMAO)
+	- [ ] Hydro power (LMAO)
+	- [ ] Hybrid Generator
 
