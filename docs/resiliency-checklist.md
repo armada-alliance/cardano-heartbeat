@@ -1,8 +1,8 @@
 ***In order to determine the necessary skills, hardware, and good practices needed for a Stake Pool Operators to be more resilient to various unforeseen events that may take down their pools from the network we have broken the checklist into the following sections: Stake Pool Operations Recommended Skills and Resources, Resilience Options, and Redundancy***
 
 # Stake Pool Operator Skills
--[ ]<details>
-<summary>Network Engineering</summary>
+- [ ] Netwrork Engineering<details>
+<summary></summary>
 <br> 
 A network engineer is a technology professional who is highly skilled in maintaining the connectivity of networks in terms of data, voice, calls, videos and wireless network services. These network engineers are also referred to as network architects.Our Network engineering description includes being accountable for formulating, implementing and executing the entirety of computer networks within an organization.
 </details>
