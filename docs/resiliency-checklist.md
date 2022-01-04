@@ -34,36 +34,43 @@ In practice, the best DevOps processes and cultures extend beyond development an
 - [ ] Failover Block Producer
 - [ ] Failover Relay
 - [ ] Backup ISP
-- [ ] Designated Alternate SPO 
-- [ ] Designated off-grid power duration 12-24 hrs 
+- [ ] Designated Alternate SPO
+	- [ ] Accessibility requirements
+	- [ ] Security requirements (trust in the SPO to use keys/hardware/software)
+	- [ ] Multiple owner stake pools
+- [ ] Designated off-grid power duration (12-24 hrs)
 
 
-# Redundancy (infrastructure and Hardware)
-- [ ] Backup keys and passwords
-- [ ] Spare node hardware
-- [ ] Spare SSD/ hard drives
-- [ ] Cables
+# Redundancy (data, software, infrastructure, and Hardware)
+- Data and Software Backup
+	- [ ] Backup keys and passwords
+		- [ ] Written Down on paper
+		- [ ] Electronic backups on USB/external hard drive
+	- [ ] Backup Configuration Files
+	- [ ] Backup Node Software (node and cli binaries)
+	- [ ] Backup DB snapshot
+	- [ ] Backup Tools/software
+
+- Hardware
+	- [ ] Spare node hardware
+	- [ ] Spare SSD/ hard drives
+	- [ ] Cables
+
 - Internet
-	- [ ] ISP
-	- [ ] Fiber
-	- [ ] DSL
-	- [ ] Cellular
-	- [ ] Satellite
+	- [ ] Main ISP
+		- [ ] Fiber
+		- [ ] DSL
+		- [ ] Satellite
+		- [ ] Cable/Coaxial
+	- [ ] Backup ISP
+		- [ ] Cellular/4G-5G wireless
+		- [ ] Satellite/Starlink
+		- [ ] Secondary cloud based ISP (AWS, Azure, GCP, etc)
+		- [ ] Secondary location ( should be out of your region) & ISP with your own hardware
 - Power supply
-	- [ ] UPS 
-- [ ] Energy usage measurement tools
-	- [ ] Non-Contact Voltage Testers (Inductance Testers)
-	- [ ] Multimeter
-	- [ ] Oscilloscope
-	
+	- Failover
+		- [ ] UPS
+		- [ ] Solar panels + batteries
+		- [ ] Generator
 
-- Immediate failover power from grid to off-grid:
-	- [ ] solar power 
-	- [ ] Tesla or LG style wall batteries
-	- [ ] Propane Generator
-	- [ ] Diesel Generator
-	- [ ] Gas Generator
-	- [ ] Wind power (LMAO)
-	- [ ] Hydro power (LMAO)
-	- [ ] Hybrid Generator
 
