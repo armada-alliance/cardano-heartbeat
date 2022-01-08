@@ -52,9 +52,13 @@ In practice, the best DevOps processes and cultures extend beyond development an
 	- [ ] Backup Tools/software
 
 - Hardware
-	- [ ] Spare node hardware
+	- [ ] Spare node hardware (physical location with access)
+	- [ ] Spare node hardware (cloud based)
 	- [ ] Spare SSD/ hard drives
 	- [ ] Cables
+		- [ ] Ethernet Cables
+		- [ ] SSD/HDD Adapters and Cables
+	- [ ] Back Up Power Supplies for Nodes
 
 - Internet
 	- [ ] Main ISP
