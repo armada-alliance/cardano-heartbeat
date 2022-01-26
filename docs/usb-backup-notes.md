@@ -83,28 +83,12 @@ Your new partition can be found at /dev/sdb1, the first partition on sdb.
 badblocks -c 10240 -s -w -t random -v /dev/sdb
 ```
 
-## Format the partition as ext4
+## Format the partition as FAT32
 
-We still need to create an ext4 filesystem on the partition.
-
-```bash
-mkfs.ext4 /dev/sdb1
-```
-
-Example output:
+Using FAT32 here because I know many users still use Windows or Mac OS as their local machine and a VPS for a core. EXT4 would be better if you run Linux locally and know you will not have to mount into Windows or MAC OS.
 
 ```bash
-mke2fs 1.46.3 (27-Jul-2021)
-Creating filesystem with 15113979 4k blocks and 3784704 inodes
-Filesystem UUID: c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37
-Superblock backups stored on blocks:
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
-	4096000, 7962624, 11239424
-
-Allocating group tables: done
-Writing inode tables: done
-Creating journal (65536 blocks): done
-Writing superblocks and filesystem accounting information: done
+mkfs.fat -F 32 /dev/sdb1
 ```
 
 ## Mount the drive at boot
@@ -120,10 +104,10 @@ sudo blkid /dev/sdb1 | awk -F'"' '{print $2}'
 Example output:
 
 ```bash
-c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37
+748C-FBA1
 ```
 
-For me the UUID=c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37
+For me the UUID=748C-FBA1
 
 Drop back into your regular users shell.
 
@@ -131,14 +115,21 @@ Drop back into your regular users shell.
 exit
 ```
 
-Add mount entry to the bottom of fstab adding your UUID and the full system path to you backup folder.
+Add mount entry to the bottom of fstab adding your new partitions UUID and the full system path to your backup folder.
+For this guide we set the path to a folder we will create in our home directory. /home/<username>/core-backup
+
+Identify user id and group id and substitute for <xxxx> in fstab.
+
+```bash
+id $USER
+```
 
 ```bash
 sudo nano /etc/fstab
 ```
 
 ```bash
-UUID=c2a8f8c7-3e7a-40f2-8dac-c2b16ab07f37 <full path to mount> auto nosuid,nodev,nofail 0 1
+UUID=<748C-FBA1> /home/ada/core-backup vfat rw,uid=<xxxx>,gid=<xxxx>
 ```
 
 > nofail allows the server to boot if the drive is not inserted.
@@ -149,11 +140,10 @@ Create the mountpoint & set default ACL for files and folders with umask.
 cd; mkdir $HOME/core-backup; umask 022 $HOME/core-backup
 ```
 
-Mount the drive and confirm it mounted by locating the lost+found folder. If it is not present then your drive is not mounted.
+Mount the drive.
 
 ```bash
 sudo mount $HOME/core-backup
-ls $HOME/core-backup/
 ```
 
 Take ownership of the filesystem.
@@ -171,24 +161,59 @@ Reboot the server and confirm the system mounted the drive at boot.
 Create a script that will only backup if the drive is mounted.
 
 ```bash
-nano $NODE_HOME/scripts/core-backup.sh
+nano $HOME/core-backup-script.sh
 ```
 
 ```bash
 #!/bin/bash
+CNODE_HOME=$NODE_HOME
+# Local Source
+#SOURCE="$NODE_HOME"
+# Remote Source
+REMOTE_SOURCE="-i -e "ssh -i $HOME/.ssh/<private key>" <user>@<server name or IP>:$NODE_HOME"
+DESTINATION="$HOME/core-backup/"
 
-SOURCE="/home/ada/pi-pool"
-DESTINATION="/home/ada/core-backup/"
-
-if grep -qs 'home/ada/core-backup ' /proc/mounts; then
-    rsync -a --exclude={"db/","scripts/","logs/"} $SOURCE $DESTINATION
+if grep -qs "$HOME/core-backup" /proc/mounts; then
+   echo "Executing Rsync"
+   rsync -av --exclude-from="exclude-list.txt" $SOURCE $DESTINATION
 else
-    exit 0
+   echo "Core backup drive is not mounted."
 fi
+exit 0
+
 ```
 
 ```bash
-chmod +x $NODE_HOME/scripts/core-backup.sh
+chmod +x $HOME/core-backup-script.sh
+```
+
+Create an rsync-exclude.txt file so we can rip through and grab everything we need and skip the rest.
+
+```bash
+cd; nano exclude-list.txt
+```
+
+```bash
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.local/bin/cardano-node
+.local/bin/cardano-service
+.profile
+.selected_editor
+.ssh
+.sudo_as_admin_successful
+.wget-hsts
+git
+tmp
+pi-pool/db
+pi-pool/scripts
+pi-pool/logs
+usb-transfer
+core-backup-script.sh
+exclude-list.txt
 ```
 
 ### Setup Cron
@@ -200,8 +225,10 @@ crontab -e
 ```
 
 ```bash
+# Replace with correct path to your pools working directory
+#
 # run 3am every day
-0 3 * * * $HOME/pi-pool/scripts/core-backup.sh
+0 3 * * * $HOME/core-backup-script.sh
 ```
 
 ## Optional backup alias with mount check
@@ -215,11 +242,12 @@ cd; nano .bashrc
 Add the following at the bottom edit the paths and exclude as you see fit and source the changes.
 
 ```bash
-if grep -qs 'home/ada/core-backup ' /proc/mounts; then
-    echo "Core backup drive is mounted."; alias core-backup="rsync -a --exclude={"db/","scripts/","logs/"} $NODE_HOME $HOME/core-backup/"
+if grep -qs '$HOME/core-backup ' /proc/mounts; then
+    echo "Core backup drive is mounted. Executing Rsync"; alias core-backup="rsync -a --exclude={"db/","scripts/","logs/"} $NODE_HOME $HOME/core-backup/"
 else
     echo "Core backup drive is not mounted."
 fi
+exit 0
 
 ```
 
