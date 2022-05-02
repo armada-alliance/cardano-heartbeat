@@ -8,5 +8,3 @@
 
 * [Resiliency Checklist](resiliency-checklist.md)
 * [Automated Backup Script](backup.md)
-* [Core Plug Guide](core-plug.md)
-* [Metallb guide](metallb-guide.md)
