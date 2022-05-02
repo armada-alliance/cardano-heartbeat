@@ -1,19 +1,11 @@
-# Welcome to the Cardano-Heartbeat project documentation hub
+# Welcome to the Cardano-Heartbeat project 
 
-## This is a collection of documentation for the Cardano-Heartbeat project and its sub-projects.
+The Cardano Heartbeat (Crisis Event Management Platform) is a funded Project Catalyst fund-6 proposal to develop a platform for the management of the Cardano blockchain in times of disaster or crisis events. [View the full proposal on ideascale](https://cardano.ideascale.com/a/dtd/Cardano-Heartbeat-CEM-%F0%9F%92%9E/366924-48088)
 
-Here are some relevant links to our work so far.
+This Project is a work in progress and is currently being developed by a team from the Armada Alliance organization.
 
-THIRA Document
+[Completed THIRA (Threat Assesment Document)](https://docs.google.com/spreadsheets/d/18FUl07Pce6XM2v4zIlg3vImMiTesj8s9-i3YDhmJt7A/edit?usp=sharing)
 
-Threat Snapshot and Templates 
+[DRAFT Threat Snapshot Templates](https://drive.google.com/file/d/1GXUL8fZjsJ0b3zAwn6M32aIcU-UPEp4V/view)
 
-https://docs.google.com/spreadsheets/d/1Yizx10GpdoO_Dsrm044ipal1k-39KcivNRnxCFEhYVk/edit?usp=sharing
-
-https://docs.google.com/spreadsheets/d/18FUl07Pce6XM2v4zIlg3vImMiTesj8s9-i3YDhmJt7A/edit?usp=sharing
-
-https://docs.google.com/spreadsheets/d/1aM55TvPea_dgAmSmEPObVSgJyFvPhvZP6dzIYd5uVjQ/edit?usp=sharing
-
-https://drive.google.com/file/d/115iOzAzL83ne_j-YX5xwnG1Z7hQIhwse/view?usp=sharing
-
-https://drive.google.com/file/d/1GXUL8fZjsJ0b3zAwn6M32aIcU-UPEp4V/view?usp=sharing
+[DRAFT Threat Snapshot Introduction](https://drive.google.com/file/d/115iOzAzL83ne_j-YX5xwnG1Z7hQIhwse/view)

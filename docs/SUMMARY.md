@@ -7,4 +7,4 @@
 ## Cardano Heartbeat Documentation
 
 * [Resiliency Checklist](resiliency-checklist.md)
-* [Automated Backup Script](backup.md)
+* [SPO Backup Plan](backup.md)
