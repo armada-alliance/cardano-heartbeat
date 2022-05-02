@@ -1,9 +1,9 @@
 # Table of contents
 
-[Welcome to the Cardano Heartbeat project documentation hub](README.md)
+* [Welcome to the Cardano Heartbeat project documentation hub](README.md)
 
 
 
 ## Cardano Heartbeat (CEM) Documentation
 
-[Automated Backup Script](backup.md)
+* [Automated Backup Script](backup.md)
