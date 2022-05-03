@@ -17,6 +17,61 @@ Sure you can be _that guy or gal_, but your introducing a lot of risk. The goal 
 
 ### What Should I Backup?
 
+
+What files are important to an SPO to recover from a crisis?
+
+- KEYS/Files for the Pool
+	- Node.vkey (cold)
+	- Node.skey (cold)
+	- Node.opcert.counter (cold)
+	- Node.kes.vkey (hot)
+	- Node.kes.skey (cold)
+	- Node.opcert (hot)
+	- Node.vrf.vkey (cold)
+	- Node.vrf.skey (cold)
+	- Payment.vkey (cold)
+	- Payment.skey (cold)
+	- Stake.vkey (cold)
+	- Stake.skey (cold)
+	- Stake.address 
+	- Payment.address (hot)
+	- Stake.cert (hot)
+	- Metadata.json 
+	- poolMetadataHash.txt 
+	- MetadataUrl
+	- Pool.registration.cert
+	- Deleg.cert (hot)
+
+- DB snapshot (backup)
+
+- Network Configs
+	- ufw/iptables
+		- sudo ufw status numbered
+		- sudo iptables -S
+	- wireguard config
+		- /etc/wireguard/wg0.conf
+		- /root/wg
+	- Router config/snapshot
+
+- Pool Configs
+	- mainnet-config.json
+	- mainnet-alonzo-genesis.json
+	- Mainnet-byron-genesis.json
+	- mainnet-shelley-genesis.json
+	- mainnet-topology.json
+- Binaries
+	- cardano-cli
+	- cardano-node
+
+
+- Tools and Monitoring 
+	- gLiveView.sh
+	- env
+	- cardano-service (armada alliance optional)
+	- armadaPing.sh (armada alliance optional)
+	- topologyUpdater.sh
+
+
 ### How Should I Backup?
 
 ### Where Should I Backup?
