@@ -7,9 +7,30 @@ But how many SPOs dream about a backup plan? You've tweaked your pool and she's 
 
 A better question to ask is when. Anything could go wrong and if it impacts your pool it's a big deal. You gotta be ready to deal with it as quickly as possible given the circumstances at hand. Your next block is in 1 hour and you just lost your core node, GO!
 
+***What types of disruptions can cause emergencies?***
+
+- Natural Disaster
+
+- War or Terrorism
+
+- Civil Disruption or unrest
+
+- Accidents or human error
+
+- Cyber Attacks
+
+***What are the most important points of failure to an SPO?***
+
+1. Power
+2. Internet outages
+3. Network
+4. Critical operational Data, secret keys, and files
+5. Human error
+
+
 ### What is a 3-2-1 Backup Plan?
 
-Simple: 3 copies of all your stuff where 2 copies are on two different media types and one copy is completely offsite.
+Simple: 3 copies of all your stuff where 2 copies are on two different media types and one copy is completely offsite. This 3-2-1 backup plan is a great way to keep your Stake Pool and its essential data safe.
 
 ### Why Do I Need A Plan?
 
@@ -20,29 +41,32 @@ Sure you can be _that guy or gal_, but your introducing a lot of risk. The goal 
 
 What files are important to an SPO to recover from a crisis?
 
-- KEYS/Files for the Pool
-	- Node.vkey (cold)
-	- Node.skey (cold)
-	- Node.opcert.counter (cold)
-	- Node.kes.vkey (hot)
-	- Node.kes.skey (cold)
-	- Node.opcert (hot)
-	- Node.vrf.vkey (cold)
-	- Node.vrf.skey (cold)
-	- Payment.vkey (cold)
-	- Payment.skey (cold)
-	- Stake.vkey (cold)
-	- Stake.skey (cold)
-	- Stake.address 
-	- Payment.address (hot)
-	- Stake.cert (hot)
-	- Metadata.json 
-	- poolMetadataHash.txt 
-	- MetadataUrl
-	- Pool.registration.cert
-	- Deleg.cert (hot)
-
+{% tabs %}
+{% tab title="KEYS/Files for the Pool" %}
+- Node.vkey (cold)
+- Node.skey (cold)
+- Node.opcert.counter (cold)
+- Node.kes.vkey (hot)
+- Node.kes.skey (cold)
+- Node.opcert (hot)
+- Node.vrf.vkey (cold)
+- Node.vrf.skey (cold)
+- Payment.vkey (cold)
+- Payment.skey (cold)
+- Stake.vkey (cold)
+- Stake.skey (cold)
+- Stake.address 
+- Payment.address (hot)
+- Stake.cert (hot)
+- Metadata.json 
+- poolMetadataHash.txt 
+- MetadataUrl
+- Pool.registration.cert
+- Deleg.cert (hot)
 - DB snapshot (backup)
+
+{% endtab %}
+{% tab title="Configuration files" %}
 
 - Network Configs
 	- ufw/iptables
@@ -59,10 +83,14 @@ What files are important to an SPO to recover from a crisis?
 	- Mainnet-byron-genesis.json
 	- mainnet-shelley-genesis.json
 	- mainnet-topology.json
+
+
+{% endtab %}
+{% tab title="Cardano Node, Monitoring, and dev tools" %}
+
 - Binaries
 	- cardano-cli
 	- cardano-node
-
 
 - Tools and Monitoring 
 	- gLiveView.sh
@@ -71,9 +99,17 @@ What files are important to an SPO to recover from a crisis?
 	- armadaPing.sh (armada alliance optional)
 	- topologyUpdater.sh
 
+{% endtab %}
+{% endtabs %}
+
 
 ### How Should I Backup?
+
 
 ### Where Should I Backup?
 
 ### How To Recover?
+
+#### References:
+- [Jeff Greenling's Backup Plan](https://github.com/geerlingguy/my-backup-plan)
+- [msp360.com](https://www.msp360.com/resources/blog/data-backup-plan/)
