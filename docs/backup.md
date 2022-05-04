@@ -34,6 +34,24 @@ A better question to ask is when. Anything could go wrong and if it impacts your
 
 Simple, 3 copies of all your stuff where 2 copies are on two different media types and one copy is completely offsite. This 3-2-1 backup plan is a great way to keep your Stake Pool and its essential data safe.
 
+#### **3 Copies of Data**
+
+Following this 3-2-1 plan we have three distinct copies of our stake pool's operational/production data. With one copy being the current data used for stake pool operation purposes (i.e., keys, certs, metadata, wallets, etc...). The other two copies are backups of the pool's operational data.
+
+An important aspect in keeping your pool's data safe and recoverable is for all three copies of the data (operational and the two backups) to be stored in such a manner that if one or more of the copies should fail/lost you always have another copy safe and intact to recover from. 
+
+Lastly, it is vital to make sure all your data copies are all updated and kept in sync with the current operational data being used, do not update one copy and leave the other two out of sync. For example if you update the current operational data and leave the backup out of sync you will not be able to recover your stake pool in case of a crisis. All copies should contain the same data from the same exact point in time.
+
+#### **2 Media Types**
+
+For the two backup copies we use two different media types. One is a hard drive and the other is a cloud based storage. That way we can be sure if one of the copies is lost or fails we can still recover from it. It is recommend to keep the cloud based backup located in a different region not near your other local copies.
+
+#### **1 Offsite Location**
+
+In general, offsite means remotely. However, it is safe enough if you can keep at least 1 backup stored in another place long distance, i.e. not onsite. Hard drive devices fail eventually, so a perfect place for offsite would be cloud drive, NAS or network share.
+
+Physical storages may be damaged by human error, flood, earthquake, or stolen by theft, but that is hardly appear on network drives especially on the cloud storage that offered by well-known service providers. Believe it or not, they have more strict ways to ensure data security.
+
 ### Why Do I Need A Plan?
 
 Sure you can be _that guy or gal_, but your introducing a lot of risk. The goal is to minimize downtime and risk. The longer your pool is down the more risk you have of missing a block or the longer it'll take to sync back up to the chain. Once you're sitting on a solid plan you can use it to your pool's advantage. Advertise it as a means to draw delegates. Share your plan in your circle of influence so others can benefit as well. A good decentralized blockchain needs SPOs who are serious about minimizing downtime.
