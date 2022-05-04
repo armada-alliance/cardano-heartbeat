@@ -30,7 +30,9 @@ A better question to ask is when. Anything could go wrong and if it impacts your
 
 ### What is a 3-2-1 Backup Plan?
 
-Simple: 3 copies of all your stuff where 2 copies are on two different media types and one copy is completely offsite. This 3-2-1 backup plan is a great way to keep your Stake Pool and its essential data safe.
+
+
+Simple, 3 copies of all your stuff where 2 copies are on two different media types and one copy is completely offsite. This 3-2-1 backup plan is a great way to keep your Stake Pool and its essential data safe.
 
 ### Why Do I Need A Plan?
 
@@ -106,10 +108,16 @@ What files are important to an SPO to recover from a crisis?
 ### How Should I Backup?
 
 
+
 ### Where Should I Backup?
+
+We suggest that you use the hybrid backup plan model.
+
 
 ### How To Recover?
 
-#### References:
-- [Jeff Greenling's Backup Plan](https://github.com/geerlingguy/my-backup-plan)
-- [msp360.com](https://www.msp360.com/resources/blog/data-backup-plan/)
+
+| References   								 	 |
+|------------------------------------------------------------------------------  |
+| [Jeff Greenling's Backup Plan](https://github.com/geerlingguy/my-backup-plan)  |  
+| [msp360.com](https://www.msp360.com/resources/blog/data-backup-plan/)   |
