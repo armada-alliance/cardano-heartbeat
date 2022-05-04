@@ -30,7 +30,7 @@ A better question to ask is when. Anything could go wrong and if it impacts your
 
 ### What is a 3-2-1 Backup Plan?
 
-![](https://github.com/armada-alliance/cardano-heartbeat/blob/main/.gitbook/assets/3-2-1-backup.png?raw=true)
+![](/.gitbook/assets/3-2-1-backup.png)
 
 Simple, 3 copies of all your stuff where 2 copies are on two different media types and one copy is completely offsite. This 3-2-1 backup plan is a great way to keep your Stake Pool and its essential data safe.
 
