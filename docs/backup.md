@@ -125,7 +125,7 @@ There are three main backup types used the full, incremental, and differential b
 
 ### Where Should I Backup?
 
-Similar to how you should backup your data, there are three main backup policies or plan that you should consider. The first is a local, hybrid, and cloud backup strategy. 
+Similar to how you should backup your data, there are three main backup policies or plans that you should consider the local, hybrid, and cloud backup.
 
 The local backup strategy may work for some pools but it is risky even for the smallest of pools since in the case of a extreme event like a natural disaster, war, civil unrest, theft/robbery, or even a human error, you may lose your entire stake pool and its relevant data if you are not prepared.
 
