@@ -9,24 +9,19 @@ A better question to ask is when. Anything could go wrong and if it impacts your
 
 ***What types of disruptions can cause emergencies?***
 
-- Natural Disaster
-
-- War or Terrorism
-
-- Civil Disruption or unrest
-
-- Accidents or human error
-
+- Natural Disaster 
+- War or Terrorism 
+- Civil Disruption or unrest 
+- Accidents or human error 
 - Cyber Attacks
 
 ***What are the most important points of failure to an SPO?***
 
-1. Power
-2. Internet outages
-3. Network
-4. Critical operational Data, secret keys, and files
-5. Human error
-
+- Power
+- Internet outages
+- Network
+- Critical operational Data, secret keys, and files
+- Human error
 
 ### What is a 3-2-1 Backup Plan?
 
@@ -125,11 +120,18 @@ What files are important to an SPO to recover from a crisis?
 
 ### How Should I Backup?
 
+There are three main backup types used the full, incremental, and differential backup each with its own advantages and disadvantages. We will briefly go over each one and recommend the one that is most suitable for running your stake pool operation.
 
 
 ### Where Should I Backup?
 
-We suggest that you use the hybrid backup plan model.
+Similar to how you should backup your data, there are three main backup policies or plan that you should consider. The first is a local, hybrid, and cloud backup strategy. 
+
+The local backup strategy may work for some pools but it is risky even for the smallest of pools since in the case of a extreme event like a natural disaster, war, civil unrest, theft/robbery, or even a human error, you may lose your entire stake pool and its relevant data if you are not prepared.
+
+The hybrid backup strategy is a combination of local and cloud backup. It can be one of the most reliable backup strategies and is the most cost effective for almost any stake pool.
+
+Finally, we have the cloud backup strategy, which is a very reliable backup strategy as well but less cost effective in most cases and requires you to give up full ownership of your pool's hardware and sometimes even data.
 
 
 ### How To Recover?
