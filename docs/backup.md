@@ -122,6 +122,8 @@ What files are important to an SPO to recover from a crisis?
 
 There are three main backup types used the full, incremental, and differential backup each with its own advantages and disadvantages. We will briefly go over each one and recommend the one that is most suitable for running your stake pool operation.
 
+For most single stake pool operators who run bare metal servers which are physically accessible using the full backup method can be enough and is one of our recommended. You can find our full usb stick backup script and guide [here](/docs/usb-backup-notes.md) to learn more.
+
 
 ### Where Should I Backup?
 

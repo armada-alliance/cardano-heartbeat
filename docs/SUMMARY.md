@@ -8,3 +8,4 @@
 
 * [Resiliency Checklist](resiliency-checklist.md)
 * [SPO Backup Plan](backup.md)
+  * [USB Full backup](usb-backup-notes.md)
