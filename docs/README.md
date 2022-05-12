@@ -6,6 +6,4 @@ This Project is a work in progress and is currently being developed by a team fr
 
 [Completed THIRA (Threat Assesment Document)](https://docs.google.com/spreadsheets/d/18FUl07Pce6XM2v4zIlg3vImMiTesj8s9-i3YDhmJt7A/edit?usp=sharing)
 
-[DRAFT Threat Snapshot Templates](https://drive.google.com/file/d/1GXUL8fZjsJ0b3zAwn6M32aIcU-UPEp4V/view)
-
-[DRAFT Threat Snapshot Introduction](https://drive.google.com/file/d/115iOzAzL83ne_j-YX5xwnG1Z7hQIhwse/view)
+[DRAFT Threat Snapshot Book (DRAFT)](https://drive.google.com/file/d/1J-koNCzHYUcvXcRRWcJb2hdmnS6y-OSc/view?usp=sharing)

@@ -122,9 +122,16 @@ What files are important to an SPO to recover from a crisis?
 
 The three main types of backups are the **full**, **incremental**, and **differential** backup types. each with its own advantages and disadvantages. We will briefly go over each one and recommend the one that is most suitable for running your stake pool operation.
 
-A full backup is when you fully copy specific production/operational data needed for running your stake pool to a local and/or remote storage device(s). This is fine for a single stake pool operator with limited amount of data to backup to do on a daily basis. It is recommended that for every stake pool you have at least one full backup of both your OS/image used on your node along with a copy of your production data (keys, certs, metadata, wallets, etc...). You could just do a full backup to a usb stick or to a cloud server every day and be fine, you can find our full usb stick backup script and guide [here](/docs/usb-backup-notes.md) to learn more. A benefit of this method of backup is that it is the most reliable way to ensure your data is correctly and safely backed up to be used in a moments notice to recover from a disaster. The main drawback of the full backup is that it requires more time and resources needed from your local or cloud servers which may increase your cost of running the pool depending on your setup.
+#### ***Full Backup***: 
+A full backup is when you do a complete "point-in-time" copy of your system and the data needed for running your stake pool to a local and/or remote storage device(s). This is fine for a single stake pool operator with limited amount of data to backup to do on a daily basis. It is recommended that for every stake pool you have at least one full backup of both your OS/image used on your node along with a copy of your production data (keys, certs, metadata, wallets, etc...). You could just do a full backup to a usb stick, repo, or to a cloud server every day and be fine, you can find our full usb stick backup script and guide [here](/docs/usb-backup-notes.md) to learn more. A benefit of this method of backup is that it is the most reliable way to ensure your data is correctly and safely backed up to be used in a moments notice to recover from a disaster. The main drawback of the full backup is that it requires more resource usage from your local or cloud servers which may increase your cost of running the pool depending on your setup.
 
- 
+#### ***Incremental Backup***:
+Unlike with a full backup where you copy the entire system and its data on a scheduled basis, an incremental backup will only copy the data that has changed since the last full backup was done. This can be a much more efficient way to backup your data if you are a small to medium size company that may need efficient, cost effective, reliable, and scalable data backup solutions. While this is a great solution for most business with decent amount of data, for a stake pool operator with little data that changes (other than kes certs) it is not recommended to use this method as it may be overkill. For many Linux users you can use incremental backup tools like [Timeshift](https://teejeetech.com/timeshift/), or for macOS users you can use [rsnaphsot](https://wiki.archlinux.org/title/rsnapshot) or [Time Machine](https://support.apple.com/kb/DL101?viewlocale=en_US&locale=en_US), and for Windows 10 you can use [System Restore](https://support.microsoft.com/en-us/windows/use-system-restore-a5ae3ed9-07c4-fd56-45ee-096777ecd14e).
+
+
+#### ***Differential Backup***:
+
+
 
 ### Where Should I Backup?
 
