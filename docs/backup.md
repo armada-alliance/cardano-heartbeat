@@ -120,10 +120,11 @@ What files are important to an SPO to recover from a crisis?
 
 ### How Should I Backup?
 
-There are three main backup types used the full, incremental, and differential backup each with its own advantages and disadvantages. We will briefly go over each one and recommend the one that is most suitable for running your stake pool operation.
+The three main types of backups are the **full**, **incremental**, and **differential** backup types. each with its own advantages and disadvantages. We will briefly go over each one and recommend the one that is most suitable for running your stake pool operation.
 
-For most single stake pool operators who run bare metal servers which are physically accessible using the full backup method can be enough and is one of our recommended. You can find our full usb stick backup script and guide [here](/docs/usb-backup-notes.md) to learn more.
+A full backup is when you fully copy specific production/operational data needed for running your stake pool to a local and/or remote storage device(s). This is fine for a single stake pool operator with limited amount of data to backup to do on a daily basis. It is recommended that for every stake pool you have at least one full backup of both your OS/image used on your node along with a copy of your production data (keys, certs, metadata, wallets, etc...). You could just do a full backup to a usb stick or to a cloud server every day and be fine, you can find our full usb stick backup script and guide [here](/docs/usb-backup-notes.md) to learn more. A benefit of this method of backup is that it is the most reliable way to ensure your data is correctly and safely backed up to be used in a moments notice to recover from a disaster. The main drawback of the full backup is that it requires more time and resources needed from your local or cloud servers which may increase your cost of running the pool depending on your setup.
 
+ 
 
 ### Where Should I Backup?
 
