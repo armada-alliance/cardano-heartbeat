@@ -1,10 +1,12 @@
-# Daily backup to stick
+# USB Full backup
+
+## Daily backup to stick
 
 Daily backup of your cores hot keys and operational files to a local or remote usb stick with rsync.
 
-## Source Disk Setup
+### Source Disk Setup
 
-### Log in and open a root shell
+#### Log in and open a root shell
 
 ```bash
 sudo su
@@ -38,14 +40,13 @@ Disklabel type: gpt
 Disk identifier: EECA81B9-3683-4A59-BC63-02EEDC04FD21
 ```
 
-In my case it is /dev/sdb. Yours may be /dev/sdc, /dev/sdd or so on. /dev/sda is usually the system drive.
-**<span style="color:red">Do not format your system drive by accident</span>**.
+In my case it is /dev/sdb. Yours may be /dev/sdc, /dev/sdd or so on. /dev/sda is usually the system drive. **Do not format your system drive by accident**.
 
-# Baremetal Core
+## Baremetal Core
 
-## Create an new GUID Partition Table (GPT)
+### Create an new GUID Partition Table (GPT)
 
-**<span style="color:red">This will wipe the disk</span>**
+**This will wipe the disk**
 
 ```bash
 gdisk /dev/sdb
@@ -79,13 +80,13 @@ x	extra functionality (experts only)
 
 Your new partition can be found at /dev/sdb1, the first partition on sdb.
 
-### Optionaly Check the drive for bad blocks (takes a couple of hours)
+#### Optionaly Check the drive for bad blocks (takes a couple of hours)
 
 ```bash
 badblocks -c 10240 -s -w -t random -v /dev/sdb
 ```
 
-## Format the partition as ext4
+### Format the partition as ext4
 
 ```bash
 sudo mkfs.ext4 -n core-backup /dev/sdb1
@@ -113,17 +114,16 @@ Drop back into your regular users shell.
 exit
 ```
 
-Add mount entry to the bottom of fstab adding your new partitions UUID and the full system path to your backup folder.
-For this guide we set the path to a folder we will create in our home directory. /home/username/core-backup
+Add mount entry to the bottom of fstab adding your new partitions UUID and the full system path to your backup folder. For this guide we set the path to a folder we will create in our home directory. /home/username/core-backup
 
 ```bash
 sudo nano /etc/fstab
 ```
+
 Replace user with the user cardano-node runs as.
 
 ```bash
 UUID=55e3346a-a7ba-4b60-bd68-fa8f86b8f8ca /home/<user>/core-backup ext4 nosuid,nodev,nofail 0 1
-
 ```
 
 > nofail allows the server to boot if the drive is not inserted.
@@ -148,11 +148,11 @@ sudo chown -R $USER:$USER $HOME/core-backup
 
 Reboot the server and confirm the system mounted the drive at boot.
 
-# Remote core to local machine FAT32
+## Remote core to local machine FAT32
 
-## Create an new GUID Partition Table (GPT)
+### Create an new GUID Partition Table (GPT)
 
-**<span style="color:red">This will wipe the disk</span>**
+**This will wipe the disk**
 
 ```bash
 sudo gdisk /dev/sdb
@@ -190,7 +190,7 @@ sudo apt install exfatprogs
 sudo mkfs.exfat -n core-backup /dev/sdb1
 ```
 
-Set the msftdata data on the exFAT partition (also taken from Thawn's answer).  Since we have only one partition, apply the command to partition 1
+Set the msftdata data on the exFAT partition (also taken from Thawn's answer). Since we have only one partition, apply the command to partition 1
 
 ```
 sudo parted /dev/sdb
@@ -203,13 +203,13 @@ q
 
 Your new partition can be found at /dev/sdb1, the first partition on sdb.
 
-### Optionaly Check the drive for bad blocks (takes a couple of hours)
+#### Optionaly Check the drive for bad blocks (takes a couple of hours)
 
 ```bash
 badblocks -c 10240 -s -w -t random -v /dev/sdb
 ```
 
-## Mount the drive at boot
+### Mount the drive at boot
 
 We want this drive to always be available to our backup job. Since it will be holding sensitive data we will mount it in a way where only root and the user cardano-node runs as can access.
 
@@ -233,10 +233,9 @@ Drop back into your regular users shell.
 exit
 ```
 
-Add mount entry to the bottom of fstab adding your new partitions UUID and the full system path to your backup folder.
-For this guide we set the path to a folder we will create in our home directory. /home/username/core-backup
+Add mount entry to the bottom of fstab adding your new partitions UUID and the full system path to your backup folder. For this guide we set the path to a folder we will create in our home directory. /home/username/core-backup
 
-Identify user id and group id and substitute for <xxxx> in fstab.
+Identify user id and group id and substitute for in fstab.
 
 ```bash
 id $USER
@@ -258,10 +257,9 @@ Create the mountpoint & set default ACL for files and folders with umask.
 cd; mkdir $HOME/core-backup; umask 022 $HOME/core-backup
 ```
 
+## Scheduled Backups
 
-# Scheduled Backups
-
-### Backup what you want with Rsync as frequently as you want.
+#### Backup what you want with Rsync as frequently as you want.
 
 Create a script that will only backup if the drive is mounted.
 
@@ -287,7 +285,6 @@ else
    echo "Core backup drive is not mounted."
 fi
 exit 0
-
 ```
 
 ```bash
@@ -323,7 +320,7 @@ core-backup-script.sh
 exclude-list.txt
 ```
 
-### Setup Cron
+#### Setup Cron
 
 Open crontab and add the rule to the bottom.
 
@@ -338,7 +335,7 @@ crontab -e
 0 3 * * * $HOME/core-backup-script.sh
 ```
 
-## Optional backup alias with mount check
+### Optional backup alias with mount check
 
 Create an alias in .bashrc or .adaenv if present for manual alias to backup the core.
 
@@ -355,12 +352,12 @@ else
     echo "Core backup drive is not mounted."
 fi
 exit 0
-
 ```
 
 ```bash
 source .bashrc
 ```
+
 Now if you want to manually backup the hot keys just type core-backup. For example after generating a new KES pair and node.cert
 
 ```bash
